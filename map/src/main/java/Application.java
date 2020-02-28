@@ -1,7 +1,4 @@
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Application {
 
@@ -12,28 +9,21 @@ public class Application {
         Student stu4 = new Student("Ben", 19);
         Student stu5 = new Student("Solider", 20);
 
-        Map<String, Integer> stuList = new HashMap<>();
-        stuList.put(stu1.getName(), stu1.getAge());
-        stuList.put(stu2.getName(), stu2.getAge());
-        stuList.put(stu3.getName(), stu3.getAge());
+        ArrayList<Student>stuList=new ArrayList<>();
+        stuList.add(stu1);
+        stuList.add(stu2);
+        stuList.add(stu3);
 
         Teacher tea = new Teacher();
         tea.setName("Bob");
-        tea.setStu(stuList);
+        tea.setStuList(stuList);
 
         tea.addStudent(stu4);
         tea.addStudent(stu5);
 
-        Set<Map.Entry<String, Integer>> set = tea.getStu().entrySet();
-        Iterator<Map.Entry<String, Integer>> it = set.iterator();
+        System.out.println(tea.getStu());
 
-        while (it.hasNext()) {
-            Map.Entry<String, Integer> entry = it.next();
-            String student = entry.getKey();
-            Integer age = entry.getValue();
-            System.out.println(student + "," + age);
         }
 
-    }
 
 }

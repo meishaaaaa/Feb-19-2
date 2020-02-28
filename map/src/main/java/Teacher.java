@@ -1,32 +1,34 @@
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 public class Teacher {
     private String name;
-    private Map<String, Integer> stu = null;
+    private Map<Integer, ArrayList<Student>> stuList = new HashMap<>();
 
     public Teacher() {
-        stu = new HashMap<>();
+        stuList = new HashMap<>();
     }
 
-    public Teacher(String name, Map<String, Integer> stu) {
+    public Teacher(String name, Map<Integer, ArrayList<Student>> stu) {
         this.name = name;
-        this.stu = stu;
+        this.stuList = stuList;
     }
 
     public void addStudent(Student student) {
         Integer age = student.getAge();
-        String name = student.getName();
-        stu.put(name, age);
+        if (!stuList.containsKey(age)) {
+            ArrayList<Student> stu = new ArrayList<>();
+            stu.add(student);
+            stuList.put(age,stu);
+        }
+        else {
+            ArrayList<Student> stu=stuList.get(age);
+            stu.add(student);
+            stuList.put(age,stu);
+        }
     }
 
-    public void sortStudent(Map<String, Integer> stu) {
-        Map<Integer, List<Entry<String, Integer>>> result = stu.entrySet().stream().collect(Collectors.groupingBy(c -> c.getValue()));
-        System.out.println(result);
-    }
 
     public String getName() {
         return name;
@@ -36,11 +38,24 @@ public class Teacher {
         this.name = name;
     }
 
-    public Map<String, Integer> getStu() {
-        return stu;
+    public Map<Integer, ArrayList<Student>> getStu() {
+        return stuList;
     }
 
-    public void setStu(Map<String, Integer> stu) {
-        this.stu = stu;
+
+    public void setStuList( ArrayList<Student> stuList) {
+        Map<Integer,ArrayList<Student>> stu=new HashMap<>();
+        for (Student stu1:stuList){
+            stu.put(stu1.getAge(),stuList);
+        }
+        this.stuList=stu;
+    }
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "name='" + name + '\'' +
+                ", stuList=" + stuList +
+                '}';
     }
 }
